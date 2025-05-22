@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player/youtube'
 
 
 const MusicPlayer = ({earworm}) => {
-    const [playstate, setPlaystate] = useState(false);
+    const [playstate, setPlaystate] = useState(true);
     const [mute, setMute] = useState(false);
     const [progress, setProgress] = useState(0);
 
