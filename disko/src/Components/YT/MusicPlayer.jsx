@@ -1,4 +1,4 @@
-import { Play, VolumeX, Pause, Volume2 } from 'lucide-react';
+import { Play, VolumeX, Pause, Volume2, ThumbsUp } from 'lucide-react';
 import React, {useState} from 'react'
 import ReactPlayer from 'react-player/youtube'
 
@@ -21,13 +21,35 @@ const MusicPlayer = ({earworm}) => {
             setProgress(played);
     };
 
+    const handleLiking = ()=>{
+        let arr = [];
+        try{
+            const storedData = localStorage.getItem("disko");
+            if(storedData){
+                arr = JSON.parse(storedData);
+            }
+        } catch (e){
+            console.log(e);
+            arr = []
+        }
+        const isDuplicate = arr.some(item => item.url === earworm.url);
+        if(!isDuplicate)
+            arr.push(earworm);
+        
+        try{
+            localStorage.setItem("disko", JSON.stringify(arr));
+        } catch(e){
+            console.log(e);
+        }
+    }
+
   return (
     <div className='flex flex-col justify-center items-center gap-3 py-5'>
-        <div className='text-xl text-[#fb4934]'>{earworm.title}</div>
-        <div className='text-l text-[#fe8019]'>{earworm.artists}</div>
+        
         <ReactPlayer url={earworm.url} width={300} height={300} playing={playstate} muted={mute} 
             onProgress={handleProgress}
         />
+        <div className='text-md'>{earworm.title} -- {earworm.artists}</div>
          <input 
                 type="range" 
                 min={0} 
@@ -43,6 +65,9 @@ const MusicPlayer = ({earworm}) => {
             </button>
             <button onClick={handleMuting}>
                 {mute ? (<VolumeX />) : (<Volume2/>) }
+            </button>
+            <button onClick={handleLiking}>
+                <ThumbsUp/>
             </button>
         </div>
     </div>

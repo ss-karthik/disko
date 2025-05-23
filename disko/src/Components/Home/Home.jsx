@@ -3,7 +3,9 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='lg:ml-14 ml-18'>
+      <p>Home</p>
+    </div>
   )
 }
 

@@ -7,7 +7,11 @@ const YT = () => {
     //const url = "https://music.youtube.com/watch?v=WF83_PR2EsA&si=JptFxWihOhqDdOUi";
     const [search, setSearch] = useState("");
     const [results, setResults] = useState();
+
     const [url, setUrl] = useState("");
+    const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("");
+
     const handleSearch = async  ()=>{
         try{
             const response = await fetch(`${backendURL}/search`, {
@@ -26,7 +30,7 @@ const YT = () => {
         }
     }
     return (
-    <div className='flex flex-col gap-5 justify-center items-center m-2'>
+    <div className='flex flex-col gap-5 justify-center items-center lg:ml-14 ml-18 my-2'>
         <div className='flex gap-5 items-center justify center'>
             <input className='border border-black p-2 rounded-md max-w-96' value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
             <Search className='cursor-pointer' onClick={handleSearch}/>
@@ -38,6 +42,8 @@ const YT = () => {
                         <div className='cursor-pointer max-w-96 border border-black p-2 rounded-md' 
                         key={v.url} onClick={(e)=>{
                             setUrl(v.url);
+                            setTitle(v.title);
+                            setAuthor(v.author.name);
                         }}>
                             {v.title} -- {v.author.name}
                         </div>
@@ -46,7 +52,7 @@ const YT = () => {
             </div>  
         )}
         {url && 
-            <MusicPlayer earworm={{"title":"test", "artists":"random", "url":url}}/>
+            <MusicPlayer earworm={{"title":title, "artists":author, "url":url}}/>
         }
     </div>
   )
