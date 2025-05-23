@@ -1,5 +1,5 @@
 import { Play, VolumeX, Pause, Volume2, ThumbsUp } from 'lucide-react';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import ReactPlayer from 'react-player/youtube'
 
 
@@ -7,6 +7,11 @@ const MusicPlayer = ({earworm}) => {
     const [playstate, setPlaystate] = useState(true);
     const [mute, setMute] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [likecol, setLikecol] = useState("#000");
+
+    useEffect(()=>{
+        setLikecol("#000");
+    }, [earworm])
 
     const handlePlayPause = () => {
         setPlaystate(!playstate);
@@ -38,6 +43,7 @@ const MusicPlayer = ({earworm}) => {
         
         try{
             localStorage.setItem("disko", JSON.stringify(arr));
+            setLikecol("#0f0");
         } catch(e){
             console.log(e);
         }
@@ -67,7 +73,7 @@ const MusicPlayer = ({earworm}) => {
                 {mute ? (<VolumeX />) : (<Volume2/>) }
             </button>
             <button onClick={handleLiking}>
-                <ThumbsUp/>
+                <ThumbsUp color={likecol}/>
             </button>
         </div>
     </div>

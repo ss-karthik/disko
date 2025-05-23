@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import MusicPlayer from '../YT/MusicPlayer';
+import { Trash2 } from 'lucide-react';
 
 const Library = () => {
     const [data, setData] = useState([]);
@@ -7,7 +8,8 @@ const Library = () => {
     const [url, setUrl] = useState("");
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
-    
+
+
     useEffect(()=>{
         try{
             const storedData = localStorage.getItem("disko");
@@ -34,21 +36,25 @@ const Library = () => {
             <MusicPlayer earworm={{"title":title, "artists":author, "url":url}}/>
         }
         {data &&
-        <div>
+        <div className='flex flex-col gap-5 justify-center items-center p-2'>
             {data.map((v)=>{
+                const str = v.title + " -- " + v.artists;
+                const displayTitle = str.length >40 ? str.substring(0,40) +"..." : str;
                 return(
-                    <div className='flex justify-between'>
-                    <div className='cursor-pointer max-w-96 border border-black p-2 rounded-md' 
-                    key={v.url} onClick={(e)=>{
-                        setUrl(v.url);
-                        setTitle(v.title);
-                        setAuthor(v.artists);
-                    }}>
-                        {v.title} -- {v.artists}
-                    </div>
-                    <button className='border border-black p-2' onClick={()=>{
-                        handleDislike(v);
-                    }}>Delete</button>
+                    <div className='cursor-pointer border border-black p-2 rounded-md flex gap-2 w-96 items-center justify-between'>
+                        <div
+                        key={v.url} onClick={(e)=>{
+                            setUrl(v.url);
+                            setTitle(v.title);
+                            setAuthor(v.artists);
+                        }}
+                        title={str}
+                        >
+                            {displayTitle}
+                        </div>
+                        <Trash2  className='cursor-pointer' onClick={()=>{
+                            handleDislike(v);
+                        }}/>
                     </div>
                 )
             })}
