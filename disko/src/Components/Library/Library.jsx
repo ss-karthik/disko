@@ -20,7 +20,8 @@ const Library = () => {
         }
     }, [])
 
-    const handleDislike = (v)=>{
+    const handleDislike = (v,e)=>{
+        e.stopPropagation();
         const modified = data.filter(vid=>vid.url!=v.url);
         setData(modified);
         try{
@@ -31,7 +32,7 @@ const Library = () => {
     }
   
     return (
-    <div>
+    <div className='bg-lime-200 min-h-screen pb-40'>
         {url && 
             <MusicPlayer earworm={{"title":title, "artists":author, "url":url}}/>
         }
@@ -42,19 +43,19 @@ const Library = () => {
                 const str = v.title + " -- " + v.artists;
                 const displayTitle = str.length >40 ? str.substring(0,40) +"..." : str;
                 return(
-                    <div className='cursor-pointer border border-black p-2 rounded-md flex gap-2 md:w-96 w-72 items-center justify-between'>
-                        <div
-                        key={v.url} onClick={(e)=>{
+                    <div
+                        onClick={(e)=>{
                             setUrl(v.url);
                             setTitle(v.title);
                             setAuthor(v.artists);
-                        }}
-                        title={str}
-                        >
+                        
+                        }} 
+                        className='cursor-pointer border border-black p-2 rounded-md flex gap-2 md:w-96 w-72 items-center justify-between'>
+                        <div key={v.url} title={str}>
                             {displayTitle}
                         </div>
-                        <Trash2  className='cursor-pointer' onClick={()=>{
-                            handleDislike(v);
+                        <Trash2  className='cursor-pointer' onClick={(e)=>{
+                            handleDislike(v,e);
                         }}/>
                     </div>
                 )

@@ -31,7 +31,7 @@ const ManualAdd = () => {
     }
   
     return (
-    <div className='lg:ml-14 ml-18 pr-2 flex flex-col gap-5 justify-center md:items-center items-end'>
+    <div className='bg-lime-200 min-h-screen pb-40 flex flex-col gap-5 justify-center md:items-center items-end'>
         <h1 className='text-4xl py-5'>Manual Song Addition</h1>
         <div>
             <p>Title:</p>

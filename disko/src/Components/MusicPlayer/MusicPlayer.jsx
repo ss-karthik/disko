@@ -7,10 +7,11 @@ const MusicPlayer = ({earworm}) => {
     const [playstate, setPlaystate] = useState(true);
     const [mute, setMute] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [likecol, setLikecol] = useState("#000");
+    const [likecol, setLikecol] = useState("#ffffff");
     const [shortTitle, setShortTitle] = useState("");
     useEffect(()=>{
-        setLikecol("#000");
+        setPlaystate(true);
+        setLikecol("#ffffff");
         const str = earworm.title+"--"+earworm.artists;
         const displayTitle = str.length >40 ? str.substring(0,40) +"..." : str;
         setShortTitle(displayTitle);
@@ -53,22 +54,22 @@ const MusicPlayer = ({earworm}) => {
     }
 
   return (
-    <div className='fixed bottom-0 w-full bg-white border-t shadow-lg'>
+    <div className='fixed bottom-0 w-full bg-amber-900 shadow-lg'>
     <div className='w-full flex justify-between items-center gap-4 px-4 py-3'>   
         <div className='flex items-center gap-3 flex-1 min-w-0'>
             <ReactPlayer url={earworm.url} width={70} height={70} playing={playstate} muted={mute} 
                 onProgress={handleProgress}
             />
-            <div className='text-md' title={earworm.title+"--"+earworm.artists}>{shortTitle}</div>
+            <div className='text-md text-white' title={earworm.title+"--"+earworm.artists}>{shortTitle}</div>
         </div>
         
          
         <div className='flex justify-center gap-4'>
             <button onClick={handlePlayPause}>
-                {playstate ? (<Pause />) : (<Play/>) }
+                {playstate ? (<Pause color='#ffffff' />) : (<Play color='#ffffff'/>) }
             </button>
             <button onClick={handleMuting}>
-                {mute ? (<VolumeX />) : (<Volume2/>) }
+                {mute ? (<VolumeX color='#ffffff' />) : (<Volume2 color='#ffffff'/>) }
             </button>
             <button onClick={handleLiking}>
                 <ThumbsUp color={likecol}/>

@@ -30,10 +30,10 @@ const YT = () => {
         }
     }
     return (
-    <div className='flex flex-col gap-5 justify-center md:items-center items-end my-2 mx-2'>
+    <div className='bg-lime-200 min-h-screen pb-40 flex flex-col gap-5 justify-center md:items-center items-end py-2 px-2'>
         <h1 className='text-5xl py-5'>Diskover</h1>
         <div className='flex gap-5 items-center justify center'>
-            <input className='border border-black p-2 rounded-md max-w-96' value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
+            <input className='border border-black p-2 rounded-md max-w-96 placeholder:text-slate-600' placeholder='look up a song' value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
             <Search className='cursor-pointer' onClick={handleSearch}/>
         </div>
         {results && (
