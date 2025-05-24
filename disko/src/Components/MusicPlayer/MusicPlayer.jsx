@@ -1,9 +1,10 @@
-import { Play, VolumeX, Pause, Volume2, ThumbsUp } from 'lucide-react';
+import { Play, VolumeX, Pause, Volume2, ThumbsUp, Download } from 'lucide-react';
 import React, {useEffect, useState} from 'react'
 import ReactPlayer from 'react-player/youtube'
 
-
 const MusicPlayer = ({earworm}) => {
+    const backendURL = "http://localhost:3000"
+
     const [playstate, setPlaystate] = useState(true);
     const [mute, setMute] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -53,6 +54,23 @@ const MusicPlayer = ({earworm}) => {
         }
     }
 
+    const handleDownload = async ()=>{
+        try{
+            const response = await fetch(`${backendURL}/download`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"url" : earworm.url}),
+            })
+
+            const link = await response.json();
+            window.open(link, "_blank");
+        } catch (e){
+            console.log(e);
+        }
+    }
+
   return (
     <div className='fixed bottom-0 w-full bg-amber-900 shadow-lg'>
     <div className='w-full flex justify-between items-center gap-4 px-4 py-3'>   
@@ -66,13 +84,16 @@ const MusicPlayer = ({earworm}) => {
          
         <div className='flex justify-center gap-4'>
             <button onClick={handlePlayPause}>
-                {playstate ? (<Pause color='#ffffff' />) : (<Play color='#ffffff'/>) }
+                {playstate ? (<Pause className='cursor-pointer' color='#ffffff' />) : (<Play className='cursor-pointer' color='#ffffff'/>) }
             </button>
             <button onClick={handleMuting}>
-                {mute ? (<VolumeX color='#ffffff' />) : (<Volume2 color='#ffffff'/>) }
+                {mute ? (<VolumeX className='cursor-pointer' color='#ffffff' />) : (<Volume2 className='cursor-pointer' color='#ffffff'/>) }
             </button>
             <button onClick={handleLiking}>
-                <ThumbsUp color={likecol}/>
+                <ThumbsUp className='cursor-pointer' color={likecol}/>
+            </button>
+            <button onClick={handleDownload}>
+                <Download className='cursor-pointer' color="#ffffff"/>
             </button>
         </div>
         <input 
