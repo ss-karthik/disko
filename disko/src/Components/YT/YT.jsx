@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
 import MusicPlayer from '../MusicPlayer/MusicPlayer'
+import { backendURL } from '../../Constants';
 
 import { Search } from 'lucide-react';
 const YT = () => {
-    const backendURL = "http://localhost:3000"
-    //const url = "https://music.youtube.com/watch?v=WF83_PR2EsA&si=JptFxWihOhqDdOUi";
-    const [search, setSearch] = useState("");
+     const [search, setSearch] = useState("");
     const [results, setResults] = useState();
 
     const [url, setUrl] = useState("");

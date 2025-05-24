@@ -1,9 +1,9 @@
 import { Play, VolumeX, Pause, Volume2, ThumbsUp, Download } from 'lucide-react';
 import React, {useEffect, useState} from 'react'
 import ReactPlayer from 'react-player/youtube'
+import { backendURL } from '../../Constants';
 
 const MusicPlayer = ({earworm}) => {
-    const backendURL = "http://localhost:3000"
 
     const [playstate, setPlaystate] = useState(true);
     const [mute, setMute] = useState(false);
