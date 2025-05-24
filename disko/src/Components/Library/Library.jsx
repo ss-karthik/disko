@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import MusicPlayer from '../YT/MusicPlayer';
+import MusicPlayer from '../MusicPlayer/MusicPlayer';
 import { Trash2 } from 'lucide-react';
 
 const Library = () => {
@@ -31,17 +31,18 @@ const Library = () => {
     }
   
     return (
-    <div className='lg:ml-14 ml-18 pr-2'>
+    <div>
         {url && 
             <MusicPlayer earworm={{"title":title, "artists":author, "url":url}}/>
         }
         {data &&
-        <div className='flex flex-col gap-5 justify-center items-center p-2'>
+        <div className='flex flex-col gap-5 justify-center md:items-center items-end p-2'>
+            <h1 className='text-5xl py-5'>Library</h1>
             {data.map((v)=>{
                 const str = v.title + " -- " + v.artists;
                 const displayTitle = str.length >40 ? str.substring(0,40) +"..." : str;
                 return(
-                    <div className='cursor-pointer border border-black p-2 rounded-md flex gap-2 w-96 items-center justify-between'>
+                    <div className='cursor-pointer border border-black p-2 rounded-md flex gap-2 md:w-96 w-72 items-center justify-between'>
                         <div
                         key={v.url} onClick={(e)=>{
                             setUrl(v.url);
